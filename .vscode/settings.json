@@ -1,0 +1,9 @@
+{
+       "files.associations": {
+              "omp.h": "c",
+              "stdlib.h": "c",
+              "math.h": "c",
+              "stb_image_write.h": "c"
+       },
+       "C_Cpp.default.compilerPath": "C:\\msys64\\mingw64\\bin\\gcc.exe"
+}
