@@ -1,8 +1,10 @@
-// Define the matrix structure
+#ifndef INCLUDE_MATRIX_H
+#define INCLUDE_MATRIX_H
+
 typedef struct {
     int rows;
     int cols;
-    int **data;  // Pointer to a 2D array of integers
+    int **data;  // arrays of arrays are used. So data[1] will point to another array ar[n].
 } Matrix;
 
 Matrix *create_matrix(int rows, int cols);
@@ -11,3 +13,5 @@ void mset(Matrix *matrix, int row, int col, int value);
 void mfree(Matrix *matrix);
 int *mflat(Matrix *matrix);
 char *mflatRGB(Matrix *matrix, int nComps);
+
+#endif
