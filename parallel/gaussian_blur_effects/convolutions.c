@@ -18,7 +18,7 @@ int *create_gaussian_kernel(int size, int sigma, int *kernel_total)
        double kernel_total_private = 0;
        int intkernel_total = 0;
 
-       #pragma omp parallel for collapse(2) shared(kernel)
+       #pragma omp parallel for collapse(2) shared(kernel) schedule(guided)
        for (int i = 0; i < size; i++)
        {
               for (int j = 0; j < size; j++)
@@ -33,7 +33,7 @@ int *create_gaussian_kernel(int size, int sigma, int *kernel_total)
               }
        }
 
-       #pragma omp parallel for collapse(2) shared(kernel) shared(intkernel)
+       #pragma omp parallel for collapse(2) shared(kernel,intkernel) reduction(+:intkernel_total)
        for (int i = 0; i < size; i++)
        {
               for (int j = 0; j < size; j++)
@@ -42,7 +42,6 @@ int *create_gaussian_kernel(int size, int sigma, int *kernel_total)
                      item /= kernel_total_private;
                      item *= 100;
                      intkernel[i * size + j] = item;
-                     #pragma omp atomic
                      intkernel_total += intkernel[i * size + j];
               }
        }
@@ -67,10 +66,9 @@ void convolution_sharpen(Matrix *image)
 void convolution(Matrix *image, int *kernel, int size, int kernel_value)
 {
        int kernel_length = size * size;
-       #pragma omp parallel shared(image)
+       #pragma omp parallel for collapse(2) shared(image, kernel) firstprivate(size, kernel_value)
        for (int i = 0; i < image->rows; i++)
        {
-              #pragma omp parallel for
               for (int j = 0; j < image->cols; j++)
               {
                      int targetVal = mget(image, i, j), gausian_g = 0, gausian_b = 0, gausian_r = 0;
@@ -99,7 +97,7 @@ void convolution_infrared(Matrix *image)
 {
        int kernel[9] = {1, 2, 1, 0, 0, 0, -1, -2, -1};
 
-       #pragma omp parallel for collapse(2)
+       #pragma omp parallel for collapse(2) shared(image) firstprivate(kernel)
        for (int i = 0; i < image->rows; i++)
        {
               for (int j = 0; j < image->cols; j++)
@@ -125,7 +123,7 @@ void convolution_infrared(Matrix *image)
 
 void grayscale(Matrix *image)
 {
-       #pragma omp parallel for collapse(2)
+       #pragma omp parallel for collapse(2) schedule(guided) shared(image)
        for (int i = 0; i < image->rows; i++)
        {
               for (int j = 0; j < image->cols; j++)

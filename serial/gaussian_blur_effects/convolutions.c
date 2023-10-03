@@ -28,9 +28,7 @@ int *create_gaussian_kernel(int size, int sigma, int *kernel_total)
                      double gaussian_item = exp(exp_power) / (2 * 3.1416 * sigma * sigma);
                      kernel[i * size + j] = gaussian_item;
                      kernel_total_private += gaussian_item;
-                     printf("%f ", gaussian_item);
               }
-              printf("\n");
        }
 
        for (int i = 0; i < size; i++)
@@ -42,13 +40,10 @@ int *create_gaussian_kernel(int size, int sigma, int *kernel_total)
                      item *= 100;
                      intkernel[i * size + j] = item;
                      intkernel_total += intkernel[i * size + j];
-                     printf("%d ", intkernel[i * size + j]);
               }
-              printf("\n");
        }
 
        *kernel_total = intkernel_total;
-       printf("%d kernel total\n", intkernel_total);
        return intkernel;
 }
 

@@ -18,5 +18,3 @@ $(TARGET): $(OBJS)
 # Clean rule to remove object files and the executable
 clean:
 	rm -f $(OBJS) $(TARGET)
-	rm ./output/g*
-	rm ./output/s*

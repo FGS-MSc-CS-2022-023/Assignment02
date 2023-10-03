@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
@@ -128,25 +129,18 @@ int main()
        /* Store start time here */
        start = clock();
 
-       Matrix *image = load_image("./images/img1.jpg");
-       recursive_histogram_equalization(image, 20);
-       save_image("./output/img1.jpg", image);
-       mfree(image);
-       
-       image = load_image("./images/img2.jpg");
-       recursive_histogram_equalization(image, 20);
-       save_image("./output/img2.jpg", image);
-       mfree(image);
-       
-       image = load_image("./images/img3.jpg");
-       recursive_histogram_equalization(image, 20);
-       save_image("./output/img3.jpg", image);
-       mfree(image);
-       
-       image = load_image("./images/img4.jpg");
-       recursive_histogram_equalization(image, 20);
-       save_image("./output/img4.jpg", image);
-       mfree(image);
+       int files;
+       char **images = get_files("./images", &files);
+       for (int i = 0; i < files; i++)
+       {
+              char filename[260];
+              sprintf(filename, "%s/%s", "./images", images[i]);
+              Matrix *image = load_image(filename);
+              recursive_histogram_equalization(image, 20);
+              sprintf(filename, "%s/%s", "./output", images[i]);
+              save_image(filename, image);
+              mfree(image);
+       }
 
        end = clock();
        /* Get the time taken by program to execute in seconds */

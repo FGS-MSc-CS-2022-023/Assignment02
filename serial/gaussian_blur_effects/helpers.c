@@ -1,12 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 #include <math.h>
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <dirent.h>
 #include "stb_image.h"
 #include "stb_image_write.h"
 #include "matrix.h"
+#include "omp.h"
 #include "helpers.h"
+
+char **get_files(char *dirname, int *count)
+{
+    DIR *dir;
+    struct dirent *dirent;
+    char **names = NULL;
+    struct stat stat1;
+    int i = 0;
+
+    if ((dir = opendir(dirname)) != NULL)
+    {
+        names = (char **)malloc(sizeof(char *) * 10);
+        while (((dirent = readdir(dir)) != NULL) && i < 10)
+        {
+            char filename[260];
+            sprintf(filename, "%s/%s", dirname, dirent->d_name);
+            stat(filename, &stat1);
+            if (S_ISREG(stat1.st_mode))
+            {
+                char *name = (char*)malloc(sizeof(char) * dirent->d_namlen);
+                strcpy(name, dirent->d_name);
+                names[i] = name;
+                i++;
+            }
+        }
+    }
+    *count = i;
+    return names;
+}
 
 void dumpArrayChar(char *ar, int len, char *path)
 {
@@ -47,11 +79,11 @@ void eqArray(char *ar1, char *ar2, int len)
     {
         if (ar1[i] != ar2[i])
         {
-            printf("Not equal at %d, total:%d, %d, %d \n", i, len, ar1[i], ar2[i]);
+            println("Not equal at %d, total:%d, %d, %d \n", i, len, ar1[i], ar2[i]);
         }
     }
 
-    printf("Equal\n");
+    println("Equal\n");
 }
 
 Matrix *load_image(char *path)
@@ -60,9 +92,10 @@ Matrix *load_image(char *path)
     unsigned char *data = stbi_load(path, &width, &height, &comp, 0);
     if (data)
     {
-        printf("width = %d, height = %d, comp = %d (channels)\n", width, height, comp);
+        println("width = %d, height = %d, comp = %d (channels)\n", width, height, comp);
         Matrix *matrix = create_matrix(height, width);
 
+#pragma omp parallel for collapse(2) shared(data, matrix) schedule(guided)
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
@@ -81,7 +114,7 @@ Matrix *load_image(char *path)
         // {
         //     for (int j = 0; j < width; j++)
         //     {
-        //         printf("row:%d col:%d is %08x\n", i, j, mget(matrix, i, j));
+        //         println("row:%d col:%d is %08x\n", i, j, mget(matrix, i, j));
         //     }
         // }
 
@@ -90,7 +123,7 @@ Matrix *load_image(char *path)
 
         // stbi_write_jpg("./ar.jpg", width, height, 3, flatmap, 80);
 
-        // printf("\n");
+        // println("\n");
         return matrix;
     }
     return NULL;
@@ -100,5 +133,5 @@ void save_image(char *path, Matrix *image)
 {
     char *flatmap = mflatRGB(image, 3);
     int result = stbi_write_jpg(path, image->cols, image->rows, 3, flatmap, 80);
-    printf("test %s %d\n", path, result);
+    println("test %s %d\n", path, result);
 }

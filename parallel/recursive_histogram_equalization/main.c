@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
@@ -24,7 +25,6 @@ Histogram *get_histogram(Matrix *image)
 {
        Histogram *hist = (Histogram *)malloc(sizeof(Histogram));
        memset(hist, 0, sizeof(Histogram));
-#pragma omp parallel for collapse(2) schedule(guided)
        for (int i = 0; i < image->rows; i++)
        {
               for (int j = 0; j < image->cols; j++)
@@ -49,26 +49,23 @@ void free_histogram(Histogram *hist)
 
 CDF *cdf_compute_normalized(Histogram *hist)
 {
+       //printf("t -> %d, ", omp_get_thread_num());
        int *channels[3] = {hist->RChannel, hist->GChannel, hist->BChannel};
        CDF *cdf = (CDF *)malloc(sizeof(CDF));
        double *cdfChannels[3] = {cdf->RChannel, cdf->GChannel, cdf->BChannel};
-#pragma omp parallel shared(cdfChannels) firstprivate(channels)
        for (int i = 0; i < 3; i++)
        {
               int startingValue = channels[i][0];
               cdfChannels[i][0] = startingValue;
-#pragma omp parallel for
               for (int j = 1; j < 256; j++)
               {
                      startingValue += channels[i][j];
                      cdfChannels[i][j] = startingValue;
               }
        }
-#pragma omp parallel
        for (int i = 0; i < 3; i++)
        {
               double final_val = cdfChannels[i][255];
-#pragma omp parallel for shared(cdfChannels)
               for (int j = 0; j < 256; j++)
               {
                      cdfChannels[i][j] = cdfChannels[i][j] * 255 / final_val;
@@ -80,7 +77,6 @@ CDF *cdf_compute_normalized(Histogram *hist)
 
 void apply_normalized_cdf(Matrix *matrix, CDF *cdf)
 {
-#pragma omp parallel for collapse(2) shared(matrix, cdf)
        for (int i = 0; i < matrix->rows; i++)
        {
               for (int j = 0; j < matrix->cols; j++)
@@ -116,13 +112,14 @@ void recursive_histogram_equalization(Matrix *image, int iterations)
        {
               Histogram *hist;
               CDF *cdf;
-#pragma omp task shared(image, hist, cdf)
+              #pragma omp task shared(image, hist, cdf)
               {
+                     //printf("t2 -> %d, ", omp_get_thread_num());
                      recursive_histogram_equalization(image, iterations - 1);
                      hist = get_histogram(image);
                      cdf = cdf_compute_normalized(hist);
               }
-#pragma omp taskwait
+              #pragma omp taskwait
               apply_normalized_cdf(image, cdf);
               free(hist);
               free(cdf);
@@ -135,11 +132,12 @@ int main()
        tstart = omp_get_wtime();
        int nthreads = 0;
 
-#pragma omp parallel
+       #pragma omp parallel
        {
               nthreads = omp_get_num_threads();
-#pragma omp single
+              #pragma omp single
               {
+                     //printf("main -> %d, ", omp_get_thread_num());
                      int files;
                      char **images = get_files("./images", &files);
                      for (int i = 0; i < files; i++)
@@ -159,6 +157,6 @@ int main()
        tstop = omp_get_wtime();
        tcalc = tstop - tstart;
 
-       printf("Parallel Histogram Equalization Time  : %f, threads: %d\n", tcalc, nthreads);
+       printf("Parallel Histogram Equalization Time  : %f, threads: %d\n", tcalc, omp_get_max_threads());
        return 0;
 }

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include "matrix.h"
@@ -7,30 +8,36 @@
 
 void work()
 {
-    char *files[4] = {"img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg"};
-    char inputname[50], outputname[100];
+    int len;
+    char **files = get_files("./images", &len);
 
-    for (int i = 1; i <= 4; i++)
+    for (int i = 0; i < len; i++)
     {
-        sprintf(inputname, "./images/img%d.jpg", i);
-        Matrix *mImage = load_image(inputname);
+        char input[260];
+        char output[260];
+        sprintf(input, "%s/%s", "./images", files[i]);
+        printf("%s", input);
+        Matrix *mImage = load_image(input);
         convolution_gaussian_blur(mImage, 5);
-        sprintf(outputname, "./output/gaussian_blur_img%d.jpg", i);
-        save_image(outputname, mImage);
+        convolution_gaussian_blur(mImage, 7);
+        sprintf(output, "%s/gaussian_blur_%s", "./output", files[i]);
+        save_image(output, mImage);
         mfree(mImage);
 
-        mImage = load_image(inputname);
+        mImage = load_image(input);
         grayscale(mImage);
-        sprintf(outputname, "./output/grayscale_img%d.jpg", i);
-        save_image(outputname, mImage);
+        sprintf(output, "./output/grayscale_%s", files[i]);
+        save_image(output, mImage);
         mfree(mImage);
 
-        mImage = load_image(inputname);
+        mImage = load_image(input);
         convolution_infrared(mImage);
-        sprintf(outputname, "./output/sharpinfrared_img%d.jpg", i);
-        save_image(outputname, mImage);
+        sprintf(output, "./output/sharpinfra_%s", files[i]);
+        save_image(output, mImage);
         mfree(mImage);
+
     }
+    
 }
 
 int main()

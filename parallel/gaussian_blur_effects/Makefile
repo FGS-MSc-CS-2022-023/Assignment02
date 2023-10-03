@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -O2 -w
+CFLAGS = -Wall -O2 -w -fopenmp
 # Source files and target executable
 SRCS = convolutions.c matrix.c main.c helpers.c
 OBJS = $(SRCS:.c=.o)
@@ -17,5 +17,3 @@ $(TARGET): $(OBJS)
 # Clean rule to remove object files and the executable
 clean:
 	rm -f $(OBJS) $(TARGET)
-	rm ./output/g*
-	rm ./output/s*
