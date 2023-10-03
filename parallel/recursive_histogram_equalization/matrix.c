@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include "matrix.h"
+#include "helpers.h"
 #include "omp.h"
 
 // Function to create a new matrix
@@ -10,7 +11,7 @@ Matrix *create_matrix(int rows, int cols)
        Matrix *matrix = (Matrix *)malloc(sizeof(Matrix));
        if (matrix == NULL)
        {
-              printf("Failed to allocate memory for the matrix\n");
+              println("Failed to allocate memory for the matrix\n");
               exit(1);
        }
 
@@ -21,7 +22,7 @@ Matrix *create_matrix(int rows, int cols)
        matrix->data = (int **)malloc(rows * sizeof(int *));
        if (matrix->data == NULL)
        {
-              printf("Axis 0 cannot be allocated. Memory Error.\n");
+              println("Axis 0 cannot be allocated. Memory Error.\n");
               exit(1);
        }
 
@@ -30,7 +31,7 @@ Matrix *create_matrix(int rows, int cols)
               matrix->data[i] = (int *)malloc(cols * sizeof(int));
               if (matrix->data[i] == NULL)
               {
-                     printf("Axis 1 cannot be allocated. Memory Error.\n");
+                     println("Axis 1 cannot be allocated. Memory Error.\n");
                      exit(1);
               }
        }
@@ -95,7 +96,9 @@ char *mflatRGB(Matrix *matrix, int nComps)
 {
        int start=0;
        char *flatmap = (char *)malloc(sizeof(char) * matrix->cols * matrix->rows * nComps);
-       printf("mFlatRGB: %d width %d height %d total bytes\n", matrix->cols, matrix->rows, matrix->cols * matrix->rows * nComps);
+       println("mFlatRGB: %d width %d height %d total bytes\n", matrix->cols, matrix->rows, matrix->cols * matrix->rows * nComps);
+       
+       #pragma omp parallel for collapse(2) schedule(guided)
        for (int i = 0; i < matrix->rows; i++)
        {
               for (int j = 0; j < matrix->cols; j++)

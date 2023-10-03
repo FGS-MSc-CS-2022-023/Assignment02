@@ -24,7 +24,7 @@ Histogram *get_histogram(Matrix *image)
 {
        Histogram *hist = (Histogram *)malloc(sizeof(Histogram));
        memset(hist, 0, sizeof(Histogram));
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for collapse(2) schedule(guided)
        for (int i = 0; i < image->rows; i++)
        {
               for (int j = 0; j < image->cols; j++)
@@ -114,12 +114,15 @@ void recursive_histogram_equalization(Matrix *image, int iterations)
        }
        else
        {
-              #pragma omp task shared(image)
-              recursive_histogram_equalization(image, iterations - 1);
-              //printf("%d\n", omp_get_thread_num());
-              #pragma omp taskwait
-              Histogram *hist = get_histogram(image);
-              CDF *cdf = cdf_compute_normalized(hist);
+              Histogram *hist;
+              CDF *cdf;
+#pragma omp task shared(image, hist, cdf)
+              {
+                     recursive_histogram_equalization(image, iterations - 1);
+                     hist = get_histogram(image);
+                     cdf = cdf_compute_normalized(hist);
+              }
+#pragma omp taskwait
               apply_normalized_cdf(image, cdf);
               free(hist);
               free(cdf);
@@ -130,41 +133,32 @@ int main()
 {
        double tstart, tcalc, tstop;
        tstart = omp_get_wtime();
+       int nthreads = 0;
 
-       #pragma omp parallel
+#pragma omp parallel
        {
-              #pragma omp single
+              nthreads = omp_get_num_threads();
+#pragma omp single
               {
-                     Matrix *image = load_image("./images/img1.jpg");
-                     recursive_histogram_equalization(image, 20);
-                     save_image("./output/img1.jpg", image);
-                     mfree(image);
+                     int files;
+                     char **images = get_files("./images", &files);
+                     for (int i = 0; i < files; i++)
+                     {                   
+                            char filename[260];
+                            sprintf(filename, "%s/%s", "./images", images[i]);         
+                            Matrix *image = load_image(filename);
+                            recursive_histogram_equalization(image, 20);
+                            sprintf(filename, "%s/%s", "./output", images[i]);
+                            save_image(filename, image);
+                            mfree(image);
+                     }
 
-                     image = load_image("./images/img2.jpg");
-                     recursive_histogram_equalization(image, 20);
-                     save_image("./output/img2.jpg", image);
-                     mfree(image);
-
-                     image = load_image("./images/img3.jpg");
-                     recursive_histogram_equalization(image, 20);
-                     save_image("./output/img3.jpg", image);
-                     mfree(image);
-
-                     image = load_image("./images/img4.jpg");
-                     recursive_histogram_equalization(image, 20);
-                     save_image("./output/img4.jpg", image);
-                     mfree(image);
-                     
-                     image = load_image("./images/img5.jpg");
-                     recursive_histogram_equalization(image, 20);
-                     save_image("./output/img5.jpg", image);
-                     mfree(image);
               }
        }
 
-       tstop  = omp_get_wtime();
-       tcalc = tstop - tstart;  
+       tstop = omp_get_wtime();
+       tcalc = tstop - tstart;
 
-       printf("\n--------------------------------------------\nParallel Histogram Equalization Time  : %f\n", tcalc);
+       printf("Parallel Histogram Equalization Time  : %f, threads: %d\n", tcalc, nthreads);
        return 0;
 }
