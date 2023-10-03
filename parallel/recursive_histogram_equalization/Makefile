@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -O2 -w
+CFLAGS = -Wall -O2 -w -fopenmp
 
 # Source files and target executable
 SRCS = helpers.c matrix.c main.c

@@ -6,6 +6,7 @@
 #include "stb_image.h"
 #include "stb_image_write.h"
 #include "matrix.h"
+#include "omp.h"
 
 void dumpArrayChar(char *ar, int len, char *path)
 {

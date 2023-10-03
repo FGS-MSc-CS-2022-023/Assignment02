@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include "matrix.h"
+#include "omp.h"
 
 // Function to create a new matrix
 Matrix *create_matrix(int rows, int cols)
