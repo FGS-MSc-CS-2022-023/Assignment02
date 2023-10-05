@@ -136,7 +136,7 @@ int main()
               char filename[260];
               sprintf(filename, "%s/%s", "./images", images[i]);
               Matrix *image = load_image(filename);
-              recursive_histogram_equalization(image, 20);
+              recursive_histogram_equalization(image, 2);
               sprintf(filename, "%s/%s", "./output", images[i]);
               save_image(filename, image);
               mfree(image);

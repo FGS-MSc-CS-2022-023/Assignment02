@@ -77,6 +77,7 @@ CDF *cdf_compute_normalized(Histogram *hist)
 
 void apply_normalized_cdf(Matrix *matrix, CDF *cdf)
 {
+       //#pragma omp parallel for
        for (int i = 0; i < matrix->rows; i++)
        {
               for (int j = 0; j < matrix->cols; j++)
@@ -104,26 +105,23 @@ void free_cdf(CDF *cdf)
 
 void recursive_histogram_equalization(Matrix *image, int iterations)
 {
-       if (iterations == 0)
+       if(iterations == 0)
        {
               return;
        }
-       else
-       {
-              Histogram *hist;
-              CDF *cdf;
-              #pragma omp task shared(image, hist, cdf)
-              {
-                     //printf("t2 -> %d, ", omp_get_thread_num());
-                     recursive_histogram_equalization(image, iterations - 1);
-                     hist = get_histogram(image);
-                     cdf = cdf_compute_normalized(hist);
-              }
-              #pragma omp taskwait
-              apply_normalized_cdf(image, cdf);
-              free(hist);
-              free(cdf);
+       Histogram *hist;
+       CDF *cdf;   
+       #pragma omp task shared(image, hist, cdf) untied if(iterations > 0)
+       {  
+              //printf("t2 -> %d, ", omp_get_thread_num());
+              recursive_histogram_equalization(image, iterations - 1);
+              hist = get_histogram(image);
+              cdf = cdf_compute_normalized(hist);
        }
+       #pragma omp taskwait
+       apply_normalized_cdf(image, cdf);
+       free_cdf(cdf);
+       free_histogram(hist);
 }
 
 int main()
@@ -137,15 +135,16 @@ int main()
               nthreads = omp_get_num_threads();
               #pragma omp single
               {
-                     //printf("main -> %d, ", omp_get_thread_num());
+                     
                      int files;
+                     printf("main -> %d, ", omp_get_thread_num());
                      char **images = get_files("./images", &files);
                      for (int i = 0; i < files; i++)
                      {                   
                             char filename[260];
-                            sprintf(filename, "%s/%s", "./images", images[i]);         
+                            sprintf(filename, "%s/%s", "./images", images[i]);
                             Matrix *image = load_image(filename);
-                            recursive_histogram_equalization(image, 20);
+                            recursive_histogram_equalization(image, 400);
                             sprintf(filename, "%s/%s", "./output", images[i]);
                             save_image(filename, image);
                             mfree(image);

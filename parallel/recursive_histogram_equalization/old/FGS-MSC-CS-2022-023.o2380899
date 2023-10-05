@@ -1,0 +1,26 @@
+
+########################################################################
+#      Date:           Tue 03 Oct 2023 11:34:32 AM PDT
+#    Job ID:           2380899.v-qsvr-1.aidevcloud
+#      User:           u201250
+# Resources:           cput=75:00:00,neednodes=1:ppn=2,nodes=1:ppn=2,walltime=00:03:00
+########################################################################
+
+s001-n063
+s001-n063
+Parallel Histogram Equalization Time  : 5.214758, threads: 4
+Parallel Histogram Equalization Time  : 5.184522, threads: 4
+Parallel Histogram Equalization Time  : 5.164074, threads: 4
+Parallel Histogram Equalization Time  : 5.182963, threads: 4
+Parallel Histogram Equalization Time  : 5.200560, threads: 4
+Parallel Histogram Equalization Time  : 5.202607, threads: 4
+Parallel Histogram Equalization Time  : 5.197254, threads: 4
+Parallel Histogram Equalization Time  : 5.242141, threads: 4
+Parallel Histogram Equalization Time  : 5.162998, threads: 4
+Parallel Histogram Equalization Time  : 5.169689, threads: 4
+
+########################################################################
+# End of output for job 2380899.v-qsvr-1.aidevcloud
+# Date: Tue 03 Oct 2023 11:35:30 AM PDT
+########################################################################
+

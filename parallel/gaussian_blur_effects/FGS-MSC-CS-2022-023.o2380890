@@ -1,0 +1,76 @@
+
+########################################################################
+#      Date:           Tue 03 Oct 2023 11:04:03 AM PDT
+#    Job ID:           2380890.v-qsvr-1.aidevcloud
+#      User:           u201250
+# Resources:           cput=75:00:00,neednodes=1:ppn=2,nodes=1:ppn=2,walltime=00:03:00
+########################################################################
+
+s001-n070
+s001-n070
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.806587, nthreads: 18
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.952680, nthreads: 18
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.651459, nthreads: 18
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.936673, nthreads: 18
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.932666, nthreads: 18
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.960041, nthreads: 18
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.698683, nthreads: 18
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.907989, nthreads: 18
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.919527, nthreads: 18
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.666687, nthreads: 18
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.929180, nthreads: 20
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.919682, nthreads: 20
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.838237, nthreads: 20
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.832542, nthreads: 20
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.911257, nthreads: 20
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.850940, nthreads: 20
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.920346, nthreads: 20
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.843989, nthreads: 20
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.973518, nthreads: 20
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 2.781355, nthreads: 20
+
+########################################################################
+# End of output for job 2380890.v-qsvr-1.aidevcloud
+# Date: Tue 03 Oct 2023 11:05:07 AM PDT
+########################################################################
+

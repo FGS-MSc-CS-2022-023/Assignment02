@@ -1,11 +1,11 @@
 # Compiler and flags
-CC = gcc
-CFLAGS = -Wall -O2 -w -fopenmp
+CC = icpc
+CFLAGS = -Wall -O2 -w -lm -fopenmp
 
 # Source files and target executable
-SRCS = helpers.c matrix.c main.c
+SRCS = matrix.c helpers.c main.c
 OBJS = $(SRCS:.c=.o)
-TARGET = a
+TARGET = rehiste
 
 # Build rule for the target
 $(TARGET): $(OBJS)

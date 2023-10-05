@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "matrix.h"
+#include "convolutions.h"
 
 int *create_gaussian_kernel(int size, int sigma, int *kernel_total)
 {
@@ -59,7 +60,7 @@ void convolution_gaussian_blur(Matrix *image, int kernelsize)
 
 void convolution_sharpen(Matrix *image)
 {
-       double kernel[9] = {1, 2, 1, 0, 0, 0, -1, -2, -1};
+       int kernel[9] = {1, 2, 1, 0, 0, 0, -1, -2, -1};
        convolution(image, kernel, 9, 10);
 }
 

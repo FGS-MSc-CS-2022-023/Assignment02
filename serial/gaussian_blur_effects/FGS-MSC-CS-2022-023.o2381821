@@ -1,0 +1,36 @@
+
+########################################################################
+#      Date:           Wed 04 Oct 2023 10:10:49 AM PDT
+#    Job ID:           2381821.v-qsvr-1.aidevcloud
+#      User:           u201250
+# Resources:           cput=75:00:00,neednodes=1:ppn=2,nodes=1:ppn=2,walltime=00:03:00
+########################################################################
+
+s001-n077
+s001-n077
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Serial Gausian Blur Effects Time  : 8.444652./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Serial Gausian Blur Effects Time  : 8.367717./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Serial Gausian Blur Effects Time  : 8.401038./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Serial Gausian Blur Effects Time  : 8.390919./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Serial Gausian Blur Effects Time  : 8.378571./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Serial Gausian Blur Effects Time  : 8.443179./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Serial Gausian Blur Effects Time  : 8.381199./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Serial Gausian Blur Effects Time  : 8.494196./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Serial Gausian Blur Effects Time  : 8.359768./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Serial Gausian Blur Effects Time  : 8.370002
+########################################################################
+# End of output for job 2381821.v-qsvr-1.aidevcloud
+# Date: Wed 04 Oct 2023 10:12:25 AM PDT
+########################################################################
+

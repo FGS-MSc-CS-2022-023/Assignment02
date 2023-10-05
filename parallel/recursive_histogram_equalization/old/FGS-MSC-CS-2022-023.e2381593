@@ -1,0 +1,13 @@
+/var/spool/torque/mom_priv/jobs/2381593.v-qsvr-1.aidevcloud.SC: line 21: 3181949 Segmentation fault      OMP_NUM_THREADS=$i ./rehiste
+corrupted size vs. prev_size while consolidating
+corrupted size vs. prev_size while consolidating
+/var/spool/torque/mom_priv/jobs/2381593.v-qsvr-1.aidevcloud.SC: line 21: 3181974 Aborted                 OMP_NUM_THREADS=$i ./rehiste
+/var/spool/torque/mom_priv/jobs/2381593.v-qsvr-1.aidevcloud.SC: line 21: 3181991 Segmentation fault      OMP_NUM_THREADS=$i ./rehiste
+/var/spool/torque/mom_priv/jobs/2381593.v-qsvr-1.aidevcloud.SC: line 21: 3182003 Segmentation fault      OMP_NUM_THREADS=$i ./rehiste
+/var/spool/torque/mom_priv/jobs/2381593.v-qsvr-1.aidevcloud.SC: line 21: 3182015 Segmentation fault      OMP_NUM_THREADS=$i ./rehiste
+/var/spool/torque/mom_priv/jobs/2381593.v-qsvr-1.aidevcloud.SC: line 21: 3182027 Segmentation fault      OMP_NUM_THREADS=$i ./rehiste
+/var/spool/torque/mom_priv/jobs/2381593.v-qsvr-1.aidevcloud.SC: line 21: 3182039 Segmentation fault      OMP_NUM_THREADS=$i ./rehiste
+/var/spool/torque/mom_priv/jobs/2381593.v-qsvr-1.aidevcloud.SC: line 21: 3182051 Segmentation fault      OMP_NUM_THREADS=$i ./rehiste
+/var/spool/torque/mom_priv/jobs/2381593.v-qsvr-1.aidevcloud.SC: line 21: 3182063 Segmentation fault      OMP_NUM_THREADS=$i ./rehiste
+corrupted size vs. prev_size while consolidating
+/var/spool/torque/mom_priv/jobs/2381593.v-qsvr-1.aidevcloud.SC: line 21: 3182075 Segmentation fault      OMP_NUM_THREADS=$i ./rehiste

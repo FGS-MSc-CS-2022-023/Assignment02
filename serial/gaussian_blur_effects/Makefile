@@ -1,11 +1,11 @@
 # Compiler and flags
-CC = gcc
+CC = icc
 CFLAGS = -Wall -O2 -w
 
 # Source files and target executable
 SRCS = convolutions.c matrix.c main.c helpers.c
 OBJS = $(SRCS:.c=.o)
-TARGET = a
+TARGET = gb
 
 # Build rule for the target
 $(TARGET): $(OBJS)

@@ -1,0 +1,46 @@
+
+########################################################################
+#      Date:           Tue 03 Oct 2023 10:44:42 AM PDT
+#    Job ID:           2380875.v-qsvr-1.aidevcloud
+#      User:           u201250
+# Resources:           cput=75:00:00,neednodes=1:ppn=2,nodes=1:ppn=2,walltime=00:03:00
+########################################################################
+
+s001-n018
+s001-n018
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 5.797787, nthreads: 2
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 5.779150, nthreads: 2
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 5.897154, nthreads: 2
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 5.718674, nthreads: 2
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 5.768605, nthreads: 2
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 5.766047, nthreads: 2
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 5.762696, nthreads: 2
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 5.729214, nthreads: 2
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 5.760112, nthreads: 2
+./images/img2.jpg./images/img3.jpg./images/img1.jpg
+--------------------------------------------
+Parallel Gausian Blur Effects Time  : 5.779786, nthreads: 2
+
+########################################################################
+# End of output for job 2380875.v-qsvr-1.aidevcloud
+# Date: Tue 03 Oct 2023 10:45:44 AM PDT
+########################################################################
+

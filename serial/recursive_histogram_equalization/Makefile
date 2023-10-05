@@ -1,11 +1,11 @@
 # Compiler and flags
-CC = gcc
+CC = icc
 CFLAGS = -Wall -O2 -w
 
 # Source files and target executable
 SRCS = helpers.c matrix.c main.c
 OBJS = $(SRCS:.c=.o)
-TARGET = a
+TARGET = rehiste
 
 # Build rule for the target
 $(TARGET): $(OBJS)

@@ -29,7 +29,8 @@ char **get_files(char *dirname, int *count)
             stat(filename, &stat1);
             if (S_ISREG(stat1.st_mode))
             {
-                char *name = (char*)malloc(sizeof(char) * dirent->d_namlen);
+                int filenamelen = strlen(dirent->d_name);
+                char *name = (char*)malloc(sizeof(char) * filenamelen);
                 strcpy(name, dirent->d_name);
                 names[i] = name;
                 i++;
